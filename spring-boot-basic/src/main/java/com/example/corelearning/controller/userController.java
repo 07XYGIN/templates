@@ -18,6 +18,7 @@ public class userController {
 
     @RequestMapping("/user")
     public List<Integer> getUserList(){
+
         return userService.getUserId();
     }
 
