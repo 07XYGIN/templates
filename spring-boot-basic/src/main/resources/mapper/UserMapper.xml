@@ -5,4 +5,15 @@
     <select id="userAll" resultType="Integer">
         select * from user
     </select>
+    <select id="selectByCondition" resultType="com.example.corelearning.dto.UserDto">
+        select * from user
+        <where>
+            <if test="username != null and username != ''">
+                and username like concat('%', #{username}, '%')
+            </if>
+            <if test="age !=null">
+                and age = #{age}
+            </if>
+        </where>
+    </select>
 </mapper>

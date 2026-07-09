@@ -1,5 +1,6 @@
 package com.example.corelearning.service;
 
+import com.example.corelearning.dto.UserDto;
 import com.example.corelearning.exception.BusinessException;
 import com.example.corelearning.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,4 +19,7 @@ public class UserService {
         }
         return list;
     };
+    public List<UserDto> getUserInfo(UserDto user){
+        return userMapper.selectByCondition(user);
+    }
 }
