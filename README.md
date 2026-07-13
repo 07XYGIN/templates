@@ -23,11 +23,8 @@ templates/
      <img src="https://img.shields.io/badge/JDK-21-437291?style=flat-square&logo=openjdk&logoColor=white" alt="JDK 21"/>
      <img src="https://img.shields.io/badge/Spring%20Boot-4.x-6DB33F?style=flat-square&logo=springboot&logoColor=white" alt="Spring Boot 4.x"/>
      <img src="https://img.shields.io/badge/Maven-C71A36?style=flat-square&logo=apachemaven&logoColor=white" alt="Maven"/>
-     <img src="https://img.shields.io/badge/MyBatis-DC3545?style=flat-square&logo=mybatis&logoColor=white" alt="MyBatis"/>
      <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL"/>
      <img src="https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white" alt="Redis"/>
-     <img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=flat-square&logo=rabbitmq&logoColor=white" alt="RabbitMQ"/>
-     <img src="https://img.shields.io/badge/Lombok-BA0C2F?style=flat-square&logo=lombok&logoColor=white" alt="Lombok"/>
    </p>
 </div>
 
@@ -37,4 +34,4 @@ templates/
 
 ## License
 
-本仓库代码基于 [MIT License](https://opensource.org/licenses/MIT) 开源,可自由使用、修改。
+本仓库代码基于 [MIT License](https://opensource.org/licenses/MIT) 开源
