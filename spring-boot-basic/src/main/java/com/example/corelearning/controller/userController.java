@@ -1,6 +1,7 @@
 package com.example.corelearning.controller;
 
 import com.example.corelearning.common.Result;
+import com.example.corelearning.dto.PaymentDto;
 import com.example.corelearning.dto.UserDto;
 import com.example.corelearning.service.UserService;
 import jakarta.validation.Valid;
@@ -21,10 +22,6 @@ public class userController {
         this.userService = userService;
     }
 
-    @RequestMapping("/user")
-    public List<Integer> getUserList(){
-        return userService.getUserId();
-    }
 
     @PostMapping("/add")
     public Result<String> addUser(@Valid @RequestBody UserDto user){
@@ -34,5 +31,11 @@ public class userController {
     @PostMapping("getUserInfo")
     public Result<List<UserDto>> getUserInfo(@Valid @RequestBody UserDto user){
         return Result.success(userService.getUserInfo(user));
+    }
+
+    @PostMapping("payment")
+    public Result<Void> payment(@Valid @RequestBody PaymentDto payment){
+        userService.transfer(payment);
+        return Result.ok();
     }
 }
