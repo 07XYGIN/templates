@@ -27,3 +27,7 @@ mybatis:
 logging:
   level:
     com.example.corelearning.mapper: debug
+
+jwt:
+  secret-key: this-is-a-very-long-secret-key-for-jwt-signing-1234567890abcdef
+  expire-time: 7200000

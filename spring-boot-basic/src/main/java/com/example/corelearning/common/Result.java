@@ -1,7 +1,10 @@
 package com.example.corelearning.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class Result<T> {
     private Integer code;
@@ -20,6 +23,12 @@ public class Result<T> {
         Result<T> result = new Result<>();
         result.setCode(code);
         result.setMsg(msg);
+        return result;
+    }
+    public static <T> Result<T> ok() {
+        Result<T> result = new Result<>();
+        result.setCode(200);
+        result.setMsg("操作成功");
         return result;
     }
 }
