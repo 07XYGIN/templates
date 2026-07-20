@@ -13,10 +13,16 @@
             </if>
         </where>
     </select>
+    <select id="getUserInfo" resultType="com.example.corelearning.dto.UserDto">
+        select username,age,id,password from user where user.username = #{username}
+    </select>
     <update id="decreaseBalance">
         update user set balance = balance - #{amount} where id = #{id}
     </update>
     <update id="increaseBalance">
         update user set balance = balance + #{amount} where id = #{id}
     </update>
+    <insert id="insertUser">
+        insert into user(username, password) values(#{username}, #{password})
+    </insert>
 </mapper>
