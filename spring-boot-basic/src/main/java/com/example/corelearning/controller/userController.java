@@ -26,23 +26,6 @@ public class userController {
         this.userService = userService;
     }
 
-
-    @PostMapping("/add")
-    public Result<String> addUser(@Valid @RequestBody UserDto user){
-        return Result.success("接收成功：" + user.getUsername());
-    }
-
-    @PostMapping("getUserInfo")
-    public Result<List<UserDto>> getUserInfo(@Valid @RequestBody UserDto user){
-        return Result.success(userService.getUserInfo(user));
-    }
-
-    @PostMapping("payment")
-    public Result<Void> payment(@Valid @RequestBody PaymentDto payment){
-        userService.transfer(payment);
-        return Result.ok();
-    }
-
     @GetMapping("/page")
     public Result<PageResult<UserDto>> getUserPage(
             @RequestParam(defaultValue = "1") Integer pageNum,

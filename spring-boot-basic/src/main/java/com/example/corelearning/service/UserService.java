@@ -22,21 +22,6 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil JwtUtil;
-    public List<UserDto> getUserInfo(UserDto user){
-        return userMapper.selectByCondition(user);
-    }
-    @Transactional
-    public void transfer(@NonNull PaymentDto Payment){
-        int decreaseResult = userMapper.decreaseBalance(Payment.getFromId(), Payment.getAmount());
-        if (decreaseResult == 0) {
-            throw new BusinessException(404, "转出账户不存在");
-        }
-        int increaseResult = userMapper.increaseBalance(Payment.getOldId(), Payment.getAmount());
-        if (increaseResult == 0) {
-            throw new BusinessException(404, "转入账户不存在");
-        }
-    }
-
     public PageInfo<UserDto> getUserPage(Integer pageNum, Integer pageSize, UserDto condition) {
         PageHelper.startPage(pageNum, pageSize);
         List<UserDto> list = userMapper.selectByCondition(condition);
