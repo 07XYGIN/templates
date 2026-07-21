@@ -8,6 +8,8 @@ import com.example.corelearning.service.UserService;
 import com.github.pagehelper.PageInfo;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,9 @@ public class userController {
     public userController(UserService userService) {
         this.userService = userService;
     }
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
 
     @PostMapping("/add")
@@ -64,5 +69,11 @@ public class userController {
     @PostMapping("/login")
     public Result<String> LoginController(@Valid @RequestBody UserDto user) {
         return Result.success(userService.LoginService(user));
+    }
+
+    @GetMapping("/redis-test")
+    public String testRedis() {
+        redisTemplate.opsForValue().set("test:hello", "Redis连接成功");
+        return redisTemplate.opsForValue().get("test:hello");
     }
  }

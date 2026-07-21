@@ -61,7 +61,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
             <version>4.1.0</version>
             <scope>compile</scope>
         </dependency>
