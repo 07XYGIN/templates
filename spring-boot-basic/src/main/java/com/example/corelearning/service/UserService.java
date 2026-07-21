@@ -1,6 +1,7 @@
 package com.example.corelearning.service;
 
 import com.example.corelearning.common.JwtUtil;
+import com.example.corelearning.common.RedisUtil;
 import com.example.corelearning.dto.PaymentDto;
 import com.example.corelearning.dto.UserDto;
 import com.example.corelearning.exception.BusinessException;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 @Log4j2
 @Service
 @RequiredArgsConstructor
@@ -22,6 +25,22 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil JwtUtil;
+    private final RedisUtil RedisUtil;
+    public List<UserDto> getUserInfo(UserDto user){
+        return userMapper.selectByCondition(user);
+    }
+    @Transactional
+    public void transfer(@NonNull PaymentDto Payment){
+        int decreaseResult = userMapper.decreaseBalance(Payment.getFromId(), Payment.getAmount());
+        if (decreaseResult == 0) {
+            throw new BusinessException(404, "转出账户不存在");
+        }
+        int increaseResult = userMapper.increaseBalance(Payment.getOldId(), Payment.getAmount());
+        if (increaseResult == 0) {
+            throw new BusinessException(404, "转入账户不存在");
+        }
+    }
+
     public PageInfo<UserDto> getUserPage(Integer pageNum, Integer pageSize, UserDto condition) {
         PageHelper.startPage(pageNum, pageSize);
         List<UserDto> list = userMapper.selectByCondition(condition);
@@ -51,7 +70,8 @@ public class UserService {
         if(!matches){
             throw new BusinessException(404, "密码错误");
         }
-
-        return JwtUtil.generateToken(result.getUsername());
+        String token = JwtUtil.generateToken(result.getUsername());
+        RedisUtil.set("login:token:" + token, token, 24, TimeUnit.HOURS);
+        return token;
     }
 }

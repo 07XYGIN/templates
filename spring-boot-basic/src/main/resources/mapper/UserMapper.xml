@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.corelearning.mapper.UserMapper">
+    <resultMap id="userWithOrdersMap" type="com.example.corelearning.dto.UserDto">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="age" column="age"/>
+
+        <collection property="orders"
+                    column="id"
+                    select="com.example.corelearning.mapper.OrderMapper.selectByUserId">
+        </collection>
+    </resultMap>
+
+    <select id="selectUserWithOrders" resultMap="userWithOrdersMap">
+        select id, username, age from user where id = #{id}
+    </select>
     <select id="selectByCondition" resultType="com.example.corelearning.dto.UserDto">
         select * from user
         <where>
