@@ -1,4 +1,4 @@
-from fastapi import Request
+from fastapi import Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
@@ -17,12 +17,19 @@ async def parameter_exception_handler(request: Request, exc: ParameterException)
 
 
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    errors = []
+    for error in exc.errors():
+        errors.append({
+            "field": ".".join(str(loc) for loc in error["loc"]),
+            "error_type": error["type"],
+            "message": error["msg"],
+        })
+
     return JSONResponse(
-        status_code=422,
         content={
-            "code": 422,
-            "message": "不合法的参数",
-            "detail": exc.errors(),
+            "code": status.HTTP_422_UNPROCESSABLE_ENTITY,
+            "message": "请求数据校验失败",
+            "errors": errors,
         },
     )
 

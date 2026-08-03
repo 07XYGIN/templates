@@ -129,14 +129,14 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "fastapi", extra = ["all"] },
-    { name = "pydantic" },
+    { name = "pydantic", extra = ["email"] },
     { name = "uvicorn" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "fastapi", extras = ["all"], specifier = ">=0.141.1" },
-    { name = "pydantic", specifier = ">=2.13.4" },
+    { name = "pydantic", extras = ["email"], specifier = ">=2.13.4" },
     { name = "uvicorn", specifier = ">=0.51.0" },
 ]
 
