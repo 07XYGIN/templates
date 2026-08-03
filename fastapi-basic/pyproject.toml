@@ -5,5 +5,7 @@ description = "This is Python FastAPI template"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "fastapi[all]>=0.139.0",
+    "fastapi[all]>=0.141.1",
+    "pydantic[email]>=2.13.4",
+    "uvicorn>=0.51.0",
 ]
