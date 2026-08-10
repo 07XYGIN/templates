@@ -1,7 +1,7 @@
 from fastapi import Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-
+from pwdlib.exceptions import UnknownHashError
 
 class ParameterException(Exception):
     def __init__(self, message: str, code: int = 400):
@@ -15,6 +15,14 @@ async def parameter_exception_handler(request: Request, exc: ParameterException)
         content={"code": exc.code, "message": exc.message},
     )
 
+async def UnknownHashError_handler(request: Request, exc: UnknownHashError):
+    return JSONResponse(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        content={
+            "code": status.HTTP_500_INTERNAL_SERVER_ERROR,
+            "message": "密码校验失败",
+        }
+    )
 
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     errors = []
@@ -37,4 +45,5 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 exception_handlers = [
     (ParameterException, parameter_exception_handler),
     (RequestValidationError, validation_exception_handler),
+    (UnknownHashError, UnknownHashError_handler),
 ]

@@ -1,6 +1,8 @@
 from fastapi import APIRouter,Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.Depends.auth import get_current_user
 from app.core.response import Result
 from app.db.session import get_db
 from app.schemas.user import User
@@ -25,7 +27,8 @@ async def register(user_info:User,db: AsyncSession = Depends(get_db)):
     response_model=Result,
     summary="登录",
 )
-async def login(payload:User,db: AsyncSession = Depends(get_db)):
+
+async def login(payload:User,db: AsyncSession = Depends(get_db),current_user: UserMapper = Depends(get_current_user)):
     stmt = select(UserMapper).where(UserMapper.username == payload.username)
     result = await db.execute(stmt)
     user = result.scalar_one_or_none()
@@ -34,5 +37,5 @@ async def login(payload:User,db: AsyncSession = Depends(get_db)):
 
     if not verify_password(payload.password, user.password):
         return Result.fail(code=500, message="用户名或密码错误")
-    payload.password = "xxx"
-    return Result(code=200,message="登录成功",data={"token":"xxxxx","userinfo":payload})
+    token:str = create_access_token(user_id=user.id, username=user.username)
+    return Result(code=200,message="登录成功",data={"token":token,"userinfo":payload})

@@ -11,6 +11,10 @@ class Settings(BaseSettings):
     DB_PASSWORD: str = "123456"
     DB_NAME: str = "gin"
 
+    JWT_SECRET_KEY: str = "change-me-in-.env"
+    JWT_ALGORITHM: str = "HS256"
+    JWT_EXPIRE_MINUTES: int = 60 * 24
+
     @property
     def DATABASE_URL(self) -> str:
         return (
