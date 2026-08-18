@@ -59,7 +59,7 @@ mvn spring-boot:run
 ```bash
 cd fastapi-basic
 uv sync
-uv run fastapi dev app/main.py
+uv run main.py
 ```
 
 ---
