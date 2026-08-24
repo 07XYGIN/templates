@@ -11,6 +11,7 @@
 |------|--------|
 | [spring-boot-basic](#spring-boot-basic) | Java 21 + Spring Boot 4.x + Maven 
 | [fastapi-basic](#fastapi-basic) | Python 3.14 + FastAPI 0.139 + uv 
+| [agent-basic](#agent-basic) | Python 3.14 + agent 0.139 + uv 
 
 ---
 
@@ -63,6 +64,8 @@ uv run main.py
 ```
 
 ---
+
+## agent-basic
 
 ## 📄 License
 
